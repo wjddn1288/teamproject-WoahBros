@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Campaign">	
+	
+	<resultMap type="Campaign" id="campaignMap">
+		<id column="campaign_idx" property="campaign_idx"/>
+		<result column="title" property="title"/>
+		<result column="author" property="author"/>
+		<result column="content" property="content"/>
+		<result column="regdate" property="regdate"/>
+		<result column="hit" property="hit"/>
+		
+		<!-- 부모인 user와 association -->
+		<association
+			column="member_idx" 
+			property="member"
+			javaType="member"
+			select="Member.selectByIdx"/>
+	</resultMap>
+	
+	<select id="selectAll" resultMap="campaignMap">
+		select * from campaign order by regdate desc
+	</select>
+	
+	<select id="select" parameterType="int" resultMap="campaignMap">
+		select * from campaign where campaign_idx =#{campaign_idx}
+	</select>
+	
+	<select id="selectBySearch" parameterType="java.util.Map" resultType="Campaign">
+		select * from campaign where ${category} like '%${keyword}%' order by regdate desc
+	</select>
+	
+	<insert id="insert" parameterType="Campaign">
+		insert into campaign(campaign_idx, member_idx, title, author, content) values(seq_campaign.nextval, #{member.member_idx}, #{title}, #{author}, #{content})
+	</insert>
+	
+	<update id="update" parameterType="Campaign">
+		update campaign set title=#{title}, author=#{author}, content=#{content} where campaign_idx=#{campaign_idx}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from campaign where campaign_idx=#{campaign_idx}
+	</delete>
+
+</mapper>

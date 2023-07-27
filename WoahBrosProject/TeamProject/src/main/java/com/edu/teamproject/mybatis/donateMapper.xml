@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Donate">
+
+	<resultMap type="Donate" id="DonateMap">
+	<id column="donate_idx" property="donate_idx"/>
+	<result column="price" property="price"/>
+	<result column="regdate" property="regdate"/>
+	
+	<association
+		column="member_idx" 
+		property="member"
+		javaType="member"
+		select="Member.selectByIdx"/>
+	</resultMap>
+
+	<select id="selectAll" resultMap="DonateMap">
+		select * from donate order by regdate desc
+	</select>
+	
+	<insert id="insert" parameterType="Donate">
+		insert into donate(donate_idx, member_idx, price) values(seq_donate.nextval, #{member.member_idx},#{price})
+	</insert>
+
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdoptImg">
+
+	<select id="selectAll" resultType="AdoptImg">
+		select * from adoptimg
+	</select>
+	
+	<!-- 
+		해당adopt에 소속된 하위 이미지 가져오기 adoptmapper의 resultMap에서 호출
+	-->
+	<select id="selectByAdopt" resultType="AdoptImg" parameterType="int">
+		select * from adoptimg where adopt_idx=#{adopt_idx}
+	</select>
+	
+	<insert id="insert" parameterType="AdoptImg">
+		insert into adoptimg(adoptimg_idx, adopt_idx, filename) values(seq_adoptimg.nextval, #{adopt.adopt_idx},#{filename})
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete from adoptimg where adopt_idx=#{adopt_idx}
+	</delete>
+
+</mapper>

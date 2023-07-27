@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc      https://www.springframework.org/schema/mvc/spring-mvc.xsd
+	                        	http://www.springframework.org/schema/beans     https://www.springframework.org/schema/beans/spring-beans.xsd
+	                        	http://www.springframework.org/schema/aop     https://www.springframework.org/schema/aop/spring-aop.xsd
+		                        http://www.springframework.org/schema/context   https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<context:component-scan base-package="com.edu.teamproject.client.controller" />
+
+	<!-- userManager -->
+	<beans:bean id="userManager" class="com.edu.teamproject.util.UserManager"/>
+
+	<!-- 로그인체크 관점정의 -->
+	<beans:bean id="sessionCheckAdvice" class="com.edu.teamproject.aop.SessionCheckAdvice"/>
+
+	<!-- aop -->
+	<aop:config>
+		<aop:aspect ref="sessionCheckAdvice" id="sessionCheckAdvice">
+			<aop:pointcut expression="execution(public * com.edu.teamproject.client.controller..*(..))" id="sessionCheckPointcut"/>
+			<aop:around method="loginCheck" pointcut-ref="sessionCheckPointcut"/>
+		</aop:aspect>
+	</aop:config>
+	
+	<!-- memberRestGlobalException -->
+	<beans:bean id="restMemberGlobalException" class="com.edu.teamproject.aop.RestMemberGlobalException"/>
+	
+	<!-- memberGlobalException -->
+	<beans:bean id="memberGlobalException" class="com.edu.teamproject.aop.MemberGlobalException"/>
+	
+	<!--AnimalAPi-->
+	<beans:bean id="animalAPI" class="com.edu.teamproject.util.AnimalAPI"/>
+
+
+	<beans:bean id="googleLogin" class="com.edu.teamproject.sns.GoogleLogin">
+		<!-- 인증화면 링크 URL -->
+		<!-- 1) 인증화면 관련 -->
+		<beans:property name="endpoint" value="https://accounts.google.com/o/oauth2/v2/auth"/>
+		<beans:property name="client_id" value="943354142092-l8lviuoauldkthrdoh0m1snp8ugr8ce6.apps.googleusercontent.com"/>
+		<beans:property name="client_secret" value="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"/>
+		<beans:property name="redirect_uri" value="http://localhost:7777/sns/google/callback"/>
+		<beans:property name="response_type" value="code"/>
+		<beans:property name="scope" value="https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"/>
+		
+		<!-- 2) 토큰요청 관련 -->
+		<beans:property name="token_request_url" value="https://oauth2.googleapis.com/token"/>
+		<beans:property name="grant_type" value="authorization_code"/>
+		
+		<!-- 3) 회원정보 요청을 위한 url -->
+		<beans:property name="userinfo_url" value="https://www.googleapis.com/oauth2/v1/userinfo"/>
+		
+	</beans:bean>
+
+	
+</beans:beans>

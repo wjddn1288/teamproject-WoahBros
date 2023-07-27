@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Service">
+
+	<select id="selectAll" resultType="Service">
+		select * from service order by regdate desc
+	</select>
+	
+	<select id="select" parameterType="int" resultType="Service">
+		select * from service where service_idx=#{service_idx}
+	</select>
+	
+	<select id="selectBySearch" parameterType="java.util.Map" resultType="Service">
+		select * from service where ${category} like '%${keyword}%' order by regdate desc
+	</select>
+
+	<insert id="insert" parameterType="Service">
+		insert into service(service_idx, title, content, max) values(seq_service.nextval, #{title}, #{content}, #{max})
+	</insert>
+	
+	<update id="update" parameterType="Service">
+		update service set title=#{title}, content=#{content}, max=#{max} where service_idx=#{service_idx}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete from service where service_idx=#{service_idx}
+	</delete>
+	
+
+</mapper>

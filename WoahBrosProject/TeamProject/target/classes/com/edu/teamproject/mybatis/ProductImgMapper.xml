@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductImg">
+
+	<select id="selectAll" resultType="ProductImg">
+		select * from ProductImg 
+	</select>
+	
+	<select id="selectByProduct" parameterType="int" resultType="ProductImg">
+		select * from productimg where product_idx=#{product_idx}
+	</select>
+	
+	<insert id="insert" parameterType="ProductImg">
+		insert into productimg(productimg_idx, product_idx, filename) values(seq_productimg.nextval, #{product.product_idx},#{filename})
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete productimg where product_idx=#{product_idx}
+	</delete>
+	
+</mapper>

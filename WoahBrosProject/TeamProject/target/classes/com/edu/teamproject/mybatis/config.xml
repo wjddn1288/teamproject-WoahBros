@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases>
+		<typeAlias type="com.edu.teamproject.domain.Member" alias="Member"/>
+		<typeAlias type="com.edu.teamproject.domain.Adopt" alias="Adopt"/>
+		<typeAlias type="com.edu.teamproject.domain.AdoptImg" alias="AdoptImg"/>
+ 		<typeAlias type="com.edu.teamproject.domain.Category" alias="Category"/>
+		<typeAlias type="com.edu.teamproject.domain.Product" alias="Product"/> 
+		<typeAlias type="com.edu.teamproject.domain.ProductImg" alias="ProductImg"/>
+		<typeAlias type="com.edu.teamproject.domain.Service" alias="Service"/>
+		<typeAlias type="com.edu.teamproject.domain.Campaign" alias="Campaign"/>
+		<typeAlias type="com.edu.teamproject.domain.Notice" alias="Notice"/>
+		<typeAlias type="com.edu.teamproject.domain.Donate" alias="Donate"/>
+		<typeAlias type="com.edu.teamproject.domain.Admin" alias="Admin"/>
+	</typeAliases>
+
+  <mappers>
+    <mapper resource="com/edu/teamproject/mybatis/memberMapper.xml"/>
+    <mapper resource="com/edu/teamproject/mybatis/adoptMapper.xml"/>
+    <mapper resource="com/edu/teamproject/mybatis/adoptImgMapper.xml"/>
+     <mapper resource="com/edu/teamproject/mybatis/CategoryMapper.xml"/>
+     <mapper resource="com/edu/teamproject/mybatis/ProductMapper.xml"/>
+     <mapper resource="com/edu/teamproject/mybatis/ProductImgMapper.xml"/> 
+    <mapper resource="com/edu/teamproject/mybatis/serviceMapper.xml"/>
+    <mapper resource="com/edu/teamproject/mybatis/campaignMapper.xml"/>
+    <mapper resource="com/edu/teamproject/mybatis/noticeMapper.xml"/>
+    <mapper resource="com/edu/teamproject/mybatis/donateMapper.xml"/>
+    <mapper resource="com/edu/teamproject/mybatis/adminMapper.xml"/>
+  </mappers>
+  
+</configuration>
+
