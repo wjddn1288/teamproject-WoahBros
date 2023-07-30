@@ -5,6 +5,8 @@
 <%-- <% List<Category> categoryList=(List)request.getAttribute("categoryList");%> --%>
 <!DOCTYPE html>
 
+System.out.println(productList);
+
 <!-- beautify ignore:start -->
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr"
 	data-theme="theme-default"

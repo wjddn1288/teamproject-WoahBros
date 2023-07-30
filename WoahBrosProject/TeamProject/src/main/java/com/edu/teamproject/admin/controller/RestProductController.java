@@ -34,7 +34,7 @@ public class RestProductController {
 	private ProductService productService;
 	
 	// 상품 등록 요청 처리
-	@PostMapping("/product")
+	@RequestMapping(value = "/product", method = RequestMethod.POST)
 	public ResponseEntity<Message> regist(Product product, HttpServletRequest request){
 		logger.info("넘어온 상품은"+ product);
 		

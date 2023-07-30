@@ -13,13 +13,13 @@ import com.edu.teamproject.domain.Category;
 
 @Controller
 public class CategoryController {
-	/* 삭재해도됨 */
+
 	private Logger logger=LoggerFactory.getLogger(this.getClass());
 
 	//카테고리 관리 메인 요청
 	@GetMapping("/product/category")
 	public String getCategory(HttpServletRequest request) {
-		return "admin/shop/category";
+		return "admin/shop/category2";
 	}
 	
 	//수정요청 처리

@@ -62,7 +62,7 @@
 								<div class="card-body">
 
 									<input type="hidden" name="product_idx" value="<%=product.getProduct_idx()%>" />
-									<input type="hidden" name="category_idx" value="<%=category.getCategory_idx()%>" />
+									<%-- <input type="hidden" name="category_idx" value="<%=category.getCategory_idx()%>" /> --%>
 									
 									<div class="mb-3 row">
 										<label for="html5-text-input" class="col-md-2 col-form-label">상품 이름</label>

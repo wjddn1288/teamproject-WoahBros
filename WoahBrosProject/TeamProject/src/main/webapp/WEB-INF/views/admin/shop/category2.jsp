@@ -4,8 +4,6 @@
 <%@page contentType="text/html;charset=UTF-8"%>
 <%
 	List<Category> categoryList = (List) request.getAttribute("categoryList");
-	PageManager pm = new PageManager();
- 	pm.init(categoryList,request);
 %>
 <!DOCTYPE html>
 
@@ -159,13 +157,9 @@
 									</tr>
 								</thead>
 								<tbody class="table-border-bottom-0">
-									<% int curPos = pm.getCurPos(); %>
-									<% int num = pm.getNum(); %>
-									<% for (int a = 0; a < pm.getPageSize(); a++) { %>
-									<% if (num < 1) break; %>
-									<% Category category = categoryList.get(curPos++); %>
+									<% for (int a = 0; a < categoryList.size(); a++) { %>
+									<% Category category = categoryList.get(a); %>
 									<tr>
-										<td><i class="fab fa-angular fa-lg text-danger me-3"></i><strong><%=num--%></strong></td>
 										<td><%=category.getCategory_idx()%></td>
 										<td><%=category.getCategory_name()%></td>
 									<%}%>
@@ -176,34 +170,7 @@
 								<div class="row">
 									<div class="col-sm-10">
 										<nav aria-label="Page navigation">
-											<ul class="pagination">
-
-												<%if(pm.getTotalPage()<pm.getFirstPage()-1){ %>
-													<li class="page-item prev"><a class="page-link"
-														 href="/admin/shop/categorylist?currentPage=<%=pm.getFirstPage()-1%>"><i
-														 class="tf-icon bx bx-chevron-left"></i></a></li>
-												<%}else{ %>
-														<li class="page-item prev"><a class="page-link"
-															 href="javascript:alert('이전페이지가 없습니다')"><i
-														 	class="tf-icon bx bx-chevron-left"></i></a></li>
-												<%} %>
-												
-												<%for(int i=pm.getFirstPage(); i<pm.getLastPage(); i++){ %>
-												<%if(i>pm.getTotalPage())break; %>
-													<li class="page-item<%if(i==pm.getCurrentPage()){%>active<%}%>"><a class="page-link"
-														 href="categorylist?currentPage=<%=i%>"><%=i %></a></li>
-												<%} %>
-												
-												<%if(pm.getTotalPage()>pm.getLastPage()+1){ %>
-													<li class="page-item next"><a class="page-link"
-														 href="/admin/shop/categorylist?currentPage<%=pm.getLastPage()+1%>"><i
-														 class="tf-icon bx bx-chevron-right"></i></a></li>
-												<%}else{ %>
-														<li class="page-item next"><a class="page-link"
-															 href="javascript:alert('마지막페이지 입니다.');"><i
-															 class="tf-icon bx bx-chevron-right"></i></a></li>
-												<%} %>
-											</ul>
+											<ul class="pagination"></ul>
 										</nav>
 									</div>
 									<div class="col-sm-2">	
