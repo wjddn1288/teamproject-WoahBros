@@ -27,9 +27,6 @@ public class ProductController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-	private CategoryService categoryService;
-	
-	@Autowired
 	private ProductService productService;
 	
 	@Autowired
@@ -43,57 +40,35 @@ public class ProductController {
 		List<Product> productList=productService.selectAll();
 		
 		//4단계
-		ModelAndView mav=new ModelAndView("admin/shop/productListPage");
+		ModelAndView mav=new ModelAndView();
 		mav.addObject("productList", productList);
+		mav.setViewName("admin/product/productListPage");
+		
+		System.out.println(productList+"컨트롤러 productList 4단계");
 		
 		return mav;
 	}
-	
-	// 수정중 -------------------------------------------
-	@GetMapping("/product/list2") 
-	public ModelAndView getProductList2(HttpServletRequest request) {
-		
-		//3단계
-		List<Product> productList=productService.selectAll();
-		
-		//4단계
-		ModelAndView mav=new ModelAndView("admin/shop/productListPage2");
-		mav.addObject("productList", productList);
-		
-		return mav;
-	}
-	// -------------------------------------------
 	
 	 //상품 등록폼 페이지 요청 
-    @GetMapping("/product/registForm")
+    @GetMapping("/product/registform")
 	public ModelAndView getForm(HttpServletRequest request) {
 		
 		//3단계 
-		List<Category> categoryList=categoryService.selectAll();
+		List<Product> productList=productService.selectAll();
 		
 		//4단계
-		ModelAndView mav=new ModelAndView("admin/shop/productListPage");
-		mav.addObject("categoryList", categoryList);
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("productList", productList);
+		mav.setViewName("admin/product/productRegistPage");
 		
 		return mav;
 	}
-
-	/*
-	// 상품등록폼 요청
-	@GetMapping("/product/registForm")
-	public String getProductRegist() {
-		return "admin/shop/productListPage";
-	}
-	*/
 	
 	//상세보기 요청
 	@GetMapping("/product/detail")
 	public ModelAndView getDetail(int product_idx, HttpServletRequest request) {
 		
 		logger.info("넘어온 product_idx 값 " + product_idx);
-		
-		List <Category> categoryList=categoryService.selectAll();
-		//Category category=categoryService.select(category_idx);
 
 		Product product=productService.select(product_idx);
 		
@@ -104,10 +79,11 @@ public class ProductController {
 		ServletContext application = request.getSession().getServletContext();
 		String path = application.getRealPath("/resources/admin/productdata/");
 		
-		ModelAndView mav=new ModelAndView("admin/shop/productDetailPage");
+		ModelAndView mav=new ModelAndView();
 		mav.addObject("product", product);
-		mav.addObject("categoryList", categoryList);
 		mav.addObject("path", path);
+		
+		mav.setViewName("admin/product/productDetailPage");
 		
 		return mav;
 	}
@@ -124,36 +100,48 @@ public class ProductController {
 	@PostMapping("/product/search")
 	public ModelAndView getListBySearch(HttpServletRequest request) {
 		
-		String s_category = request.getParameter("s_category");
+		String category = request.getParameter("category");
 		String keyword = request.getParameter("keyword");
 		
-		logger.info("s_category is " + s_category);  
+		logger.info("category is " + category);  
 		logger.info("keyword is " + keyword.length()); 
 
 		List<Product> productList = null;
-		List<Category> categoryList = null; //추가
 
-		if(s_category.length()<1 || keyword.length()<1) {
+		if(category.length()<1 || keyword.length()<1) {
 			productList = productService.selectAll();			
-			categoryList = categoryService.selectAll();			
 	
 		}else {
 				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("s_category", s_category); // 사용자가 선택한 select 박스의 값
+				map.put("category", category); // 사용자가 선택한 select 박스의 값
 				map.put("keyword", keyword); // 사용자가 입력한 키워드 텍스트의 값
 				
 				productList = productService.selectBySearch(map);
-				categoryList = categoryService.selectAll(); //추가
 			}
 		
-		ModelAndView mav = new ModelAndView("admin/shop/productListPage");
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("productList", productList);
-		mav.addObject("s_category", s_category);
+		mav.addObject("category", category);
 		mav.addObject("keyword", keyword);
 		
-		//mav.setViewName("admin/shop/productListPage");
+		mav.setViewName("admin/product/productListPage");
 		
 		return mav;
 	}
-
+	
+	// 수정중 -------------------------------------------
+	@GetMapping("/product/list2") 
+	public ModelAndView getProductList2(HttpServletRequest request) {
+		
+		//3단계
+		List<Product> productList=productService.selectAll();
+		
+		//4단계
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("productList", productList);
+		mav.setViewName("admin/product/productListPage2");
+		
+		return mav;
+	}
+	//  -------------------------------------------------
 }

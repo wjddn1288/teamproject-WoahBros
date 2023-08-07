@@ -182,7 +182,7 @@ function regist(){
 		
 		//console.log("json.file is ", json.file);
 		formData.append("photo", json.file);
-	}*
+	}
 	
 	$.ajax({
 		url:"/admin/rest/adopt",

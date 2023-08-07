@@ -23,7 +23,7 @@ public class MybatisProductDAO implements ProductDAO {
 	
 	@Override
 	public List selectBySearch(Map map) { //검색
-		return sqlSessionTemplate.selectList("Service.selectBySearch", map);
+		return sqlSessionTemplate.selectList("Product.selectBySearch", map);
 	}
 
 	@Override

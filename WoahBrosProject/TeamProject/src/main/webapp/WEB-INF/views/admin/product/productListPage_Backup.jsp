@@ -1,21 +1,17 @@
 <%@page import="com.edu.teamproject.util.PageManager"%>
 <%@page import="com.edu.teamproject.domain.Product"%>
-<%@page import="com.edu.teamproject.domain.Category"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html;charset=UTF-8"%>
 <!DOCTYPE html>
 <%
 	PageManager pm = new PageManager();
 	List<Product> productList = (List)request.getAttribute("productList");
-	List<Category> categoryList = (List)request.getAttribute("categoryList");
-	
 	pm.init(productList, request);
 	
-	String s_category = (String)request.getAttribute("s_category");
+	String category = (String)request.getAttribute("category");
 	String keyword = (String)request.getAttribute("keyword");
 	
 	System.out.println(productList);
-	System.out.println(categoryList);
 %>
 
 <!-- beautify ignore:start -->
@@ -61,14 +57,10 @@
 					</div>
 
 					<div class="col-2">
-						<select id="s_category" class="form-select color-dropdown" name="s_category">
+						<select id="selectTypeOpt" class="form-select color-dropdown">
 							<option value="bg-primary">선택▼</option>
- 							<option value="category_name">카테고리</option>
-							<option value="name">상품 이름</option>
-<%-- 								<%for(int i=0; i<categoryList.size(); i++){ %>
-									<%Category category= categoryList.get(i); %>
-									<option value="<%=category.getCategory_idx()%>"><%=category.getCategory_name() %></option>		
-								<%} %> --%>
+							<option value="category_name">카테고리</option>
+							<option value="product_name">상품 이름</option>
 						</select>
 					</div>
 					<div class="col-1"></div>
@@ -92,7 +84,7 @@
 					</div>
 				</nav>
 				<!-- / Navbar -->
-					<input type="hidden" name="category1" value="<%=s_category%>" default="0">
+					<input type="hidden" name="category1" value="<%=category%>" default="0">
 					<input type="hidden" name="keyword1" value="<%=keyword%>" default="0">
 				</form>
 
@@ -119,7 +111,7 @@
 										<% Product product = productList.get(curPos++); %>
 										<tr>
 											<td><i class="fab fa-angular fa-lg text-danger me-3"></i><strong><%=num--%></strong></td>
-											<td><%=product.getCategory()%></td>
+											<td><%=product.getCategory_name()%></td>
 											<td><a id="bt_detail" href="/admin/product/detail?product_idx=<%=product.getProduct_idx() %>" name="name"><%=product.getName() %></a></td>
 	 										<td><%=product.getPrice()%>원</td>
 	 									</tr>	

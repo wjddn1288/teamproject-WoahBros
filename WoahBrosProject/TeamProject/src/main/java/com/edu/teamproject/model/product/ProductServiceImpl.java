@@ -33,20 +33,20 @@ public class ProductServiceImpl implements ProductService{
 	}
 	
 	@Override
+	public Product select(int product_idx) {
+		return productDAO.select(product_idx);
+	}
+	
+	@Override
 	public List selectBySearch(Map map) {
 		return productDAO.selectBySearch(map);
 	}
 
-	@Override
-	public Product select(int product_idx) {
-		return productDAO.select(product_idx);
-	}
-
-	@Transactional(propagation = Propagation.REQUIRED)//코드가 실행될때 트랜잭션!
+	@Transactional(propagation = Propagation.REQUIRED) //코드가 실행될때 트랜잭션!
 	public void regist(Product product, String dir) throws ProductException, UploadException, ProductImgException{
 		
 		//부모 상품 저장 (부모 product)
-		productDAO.insert(product); //select-key에 의해 pk 존재하게 됨
+		productDAO.insert(product); //select-key에 의해 pk 존재
 		
 		//파일 저장하기
 		fileManager.saveproduct(product, dir);

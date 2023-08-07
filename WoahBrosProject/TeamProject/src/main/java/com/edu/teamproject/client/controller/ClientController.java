@@ -25,8 +25,6 @@ public class ClientController {
 		return "client/indexAfferLogin";
 	}
 	
-	
-	
 	@GetMapping("/contact")
 	public String getContactPage(HttpServletRequest request) {
 		return "client/contact";

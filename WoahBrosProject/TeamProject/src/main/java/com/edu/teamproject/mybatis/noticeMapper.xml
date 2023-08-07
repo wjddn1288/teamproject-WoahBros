@@ -26,5 +26,4 @@
 		delete from notice where notice_idx=#{notice_idx}
 	</delete>
 	
-
 </mapper>

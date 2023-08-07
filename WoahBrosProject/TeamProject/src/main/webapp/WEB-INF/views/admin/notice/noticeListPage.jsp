@@ -69,7 +69,6 @@
 										class="form-control border-0 shadow-none"
 										placeholder="Search..." aria-label="Search..." name="keyword"/>
 								</div>
-
 							</div>
 	
 							<div>
@@ -106,8 +105,7 @@
 									<%if(num<1)break; %>
 										<%Notice notice = noticeList.get(curPos++); %>
 										<tr>
-											<td><i class="fab fa-angular fa-lg text-danger me-3"></i>
-												<strong><%= num-- %></strong></td>
+											<td><i class="fab fa-angular fa-lg text-danger me-3"></i><strong><%= num-- %></strong></td>
 											<td><a id="bt_detail" href="/admin/notice/detail?notice_idx=<%=notice.getNotice_idx() %>"><%=notice.getTitle() %></a></td>
 											<td>관리자</td>
 											<td><%=notice.getRegdate().substring(0,10) %></td>
@@ -132,10 +130,10 @@
 														 	class="tf-icon bx bx-chevron-left"></i></a></li>
 												<%} %>
 												
-												<%for(int i=pm.getFirstPage(); i<pm.getLastPage(); i++){ %>
-												<%if(i>pm.getTotalPage())break; %>
-													<li class="page-item<%if(i==pm.getCurrentPage()){%>active<%}%>"><a class="page-link"
-														 href="list?currentPage=<%=i%>"><%=i %></a></li>
+												<%for(int a=pm.getFirstPage();a<=pm.getLastPage();  a++){ %>
+													<%if(a>pm.getTotalPage())break; %>
+													<li class="page-item <%if(a==pm.getCurrentPage()){ %>active<%}%>"><a class="page-link"
+														 href=" list?currentPage=<%=a%>"><%=a %></a></li>
 												<%} %>
 												
 												<%if(pm.getTotalPage()>pm.getLastPage()+1){ %>

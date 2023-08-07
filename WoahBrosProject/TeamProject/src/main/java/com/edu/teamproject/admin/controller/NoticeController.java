@@ -22,10 +22,10 @@ import com.edu.teamproject.model.notice.NoticeService;
 @Controller
 public class NoticeController {
 	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private NoticeService noticeService;
-	
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	//공지사항 글등록 페이지 요청
 	@GetMapping("/notice/registform")
@@ -35,9 +35,9 @@ public class NoticeController {
 	
 	//공지사항 리스트 페이지 요청
 	@GetMapping("/notice/list")
-	public ModelAndView getreportList() {
+	public ModelAndView getreportList(HttpServletRequest request) {
 		
-		List<Notice> noticeList=(List)noticeService.selectAll();
+		List<Notice> noticeList=noticeService.selectAll();
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("noticeList",noticeList);
@@ -45,7 +45,7 @@ public class NoticeController {
 		return mav;
 	}
 	
-	//검색 기능을 통한 입양 리스트 
+	//검색 기능을 통한 리스트 
 	@PostMapping("/notice/search")
 	public ModelAndView getListBySearch(HttpServletRequest request) {
 		
@@ -75,7 +75,7 @@ public class NoticeController {
 	}
 	
 	@GetMapping("/notice/detail")
-	public ModelAndView getDetail(int notice_idx) {
+	public ModelAndView getDetail(int notice_idx, HttpServletRequest request) {
 		logger.info("넘어온 idx"+notice_idx);
 		
 		Notice notice = noticeService.select(notice_idx);

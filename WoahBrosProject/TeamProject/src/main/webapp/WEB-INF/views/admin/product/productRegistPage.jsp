@@ -5,8 +5,6 @@
 <%-- <% List<Category> categoryList=(List)request.getAttribute("categoryList");%> --%>
 <!DOCTYPE html>
 
-System.out.println(productList);
-
 <!-- beautify ignore:start -->
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr"
 	data-theme="theme-default"
@@ -62,36 +60,27 @@ System.out.println(productList);
 													<option value="배변패드">배변패드</option>
 													<option value="굿즈">굿즈</option>
 											</select>
-<%-- 											<select class="form-control" name="category_idx">
-						                          <option value="0">카테고리 선택</option>
-						                          <%for(Category category : categoryList){ %>
-						                          <option value="<%=category.getCategory_idx()%>"><%=category.getName() %></option>
-						                          <%} %>
-					                          </select> --%>			 										
 										</div>
 									</div>
 									
 									<div class="mb-3 row">
 										<label for="html5-text-input" class="col-md-2 col-form-label">상품 이름</label>
 										<div class="col-md-10">
-											<input class="form-control" type="text" placeholder="상품 이름 입력.."
-													name="name">
+											<input class="form-control" type="text" placeholder="상품 이름 입력.." name="name">
 										</div> 
 									</div>
 									
 									<div class="mb-3 row">
 										<label for="html5-text-input" class="col-md-2 col-form-label">가격</label>
 										<div class="col-md-10">
-											<input class="form-control" type="text" placeholder="상품 가격 입력.."
-												name="price">
+											<input class="form-control" type="text" placeholder="상품 가격 입력.." name="price">
 										</div> 
 									</div>
 
 									<div class="mb-3 row">
 										<label for="html5-text-input" class="col-md-2 col-form-label">수량</label>
 										<div class="col-md-10">
-											<input class="form-control" type="number" placeholder="수량 입력.."
-												 name="EA">
+											<input class="form-control" type="number" placeholder="수량 입력.." name="EA">
 										</div>
 									</div>
 
@@ -231,7 +220,6 @@ function preview(files){
 function regist(){
 	let formData= new FormData(); //비어있는 폼을 하나 생성 파일을 넘기기 떄문에 비동기로 가야됨
 	
-/* 	formData.append("category.category_idx", $("select[name='category_idx']").val());  */
  	formData.append("category_name", $("select[name='category_name']").val()); 
 	formData.append("name", $("input[name='name']").val());
 	formData.append("price", $("input[name='price']").val());
